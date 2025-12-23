@@ -72,9 +72,17 @@
 
     .name {
       font-family: 'Playfair Display', serif;
-      font-size: 1.8rem;
+      font-size: 1.9rem;
       color: var(--accent);
       margin-bottom: 10px;
+    }
+
+    .choices {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 30px;
     }
 
     .btn {
@@ -87,20 +95,6 @@
       cursor: pointer;
       box-shadow: 0 14px 30px rgba(236,72,153,0.45);
       transition: all 0.3s ease;
-      margin-top: 10px;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 20px 40px rgba(236,72,153,0.6);
-    }
-
-    .choices {
-      display: flex;
-      gap: 18px;
-      justify-content: center;
-      flex-wrap: wrap;
-      margin-top: 30px;
     }
 
     .btn.secondary {
@@ -110,8 +104,8 @@
       box-shadow: none;
     }
 
-    .btn.secondary:hover {
-      background: rgba(236,72,153,0.08);
+    .btn:hover {
+      transform: translateY(-2px);
     }
 
     .response {
@@ -134,7 +128,7 @@
 
   <!-- 🎵 BACKGROUND MUSIC -->
   <audio id="bgMusic" loop>
-    <source src="iwannabeyours1.mp3" type="audio/mpeg">
+    <source src="iwannaneyours1.mp3" type="audio/mpeg">
   </audio>
 
   <!-- SECTION 1 -->
@@ -144,17 +138,12 @@
         <div class="name">Christine</div>
         <h1>Hey…</h1>
         <p class="primary">
-          I made this because I wanted to say something
-          in a calm and honest way.
+          I wanted to say this to you from long time. 
         </p>
         <p>
           No pressure.  
-          Just how I truly feel.
+          Just honesty.
         </p>
-
-        <button class="btn" id="musicBtn" onclick="toggleMusic()">
-          ▶ Play music
-        </button>
       </div>
     </div>
   </section>
@@ -165,11 +154,11 @@
       <div class="card">
         <h2>How it feels</h2>
         <p>
-          Somewhere between conversations,
-          laughter, and time…
+          Somewhere between conversations  
+          and shared moments…
         </p>
         <p>
-          You became someone I genuinely care about.
+          You became someone I truly care about.Someone I don't wanna loose
         </p>
       </div>
     </div>
@@ -181,8 +170,8 @@
       <div class="card">
         <h2>This is the truth</h2>
 
-        <p class="primary" style="font-size:1.4rem;">
-          Christine, I like you.
+        <p class="primary" style="font-size:1.45rem;">
+          Christine, I really like you.
         </p>
 
         <p>
@@ -202,27 +191,36 @@
   </section>
 
   <footer>
-    Whatever you feel is okay.
+    Whatever you feel is okay.I don't wanna force you
   </footer>
 
   <script>
     const music = document.getElementById("bgMusic");
-    const musicBtn = document.getElementById("musicBtn");
     const response = document.getElementById("response");
-    let isPlaying = false;
 
-    function toggleMusic() {
-      if (!isPlaying) {
-        music.volume = 0.4;
-        music.play();
-        musicBtn.textContent = "⏸ Pause music";
-        isPlaying = true;
-      } else {
-        music.pause();
-        musicBtn.textContent = "▶ Play music";
-        isPlaying = false;
-      }
+    let musicStarted = false;
+
+    // Start music on FIRST interaction anywhere
+    function startMusic() {
+      if (musicStarted) return;
+      musicStarted = true;
+
+      music.volume = 0;
+      music.play();
+
+      let vol = 0;
+      const fade = setInterval(() => {
+        if (vol >= 0.4) {
+          clearInterval(fade);
+        } else {
+          vol += 0.02;
+          music.volume = vol;
+        }
+      }, 120);
     }
+
+    document.addEventListener("click", startMusic, { once: true });
+    document.addEventListener("touchstart", startMusic, { once: true });
 
     function yes() {
       response.style.display = "block";
