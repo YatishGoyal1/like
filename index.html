@@ -122,13 +122,24 @@
       color: var(--muted);
       opacity: 0.7;
     }
+
+    /* Invisible tap layer for mobile audio */
+    #tapLayer {
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      background: transparent;
+    }
   </style>
 </head>
 <body>
 
+  <!-- Invisible tap layer -->
+  <div id="tapLayer"></div>
+
   <!-- 🎵 BACKGROUND MUSIC -->
   <audio id="bgMusic" loop>
-    <source src="iwannaneyours1.mp3" type="audio/mpeg">
+    <source src="iwannabeyours1.mp3" type="audio/mpeg">
   </audio>
 
   <!-- SECTION 1 -->
@@ -197,10 +208,10 @@
   <script>
     const music = document.getElementById("bgMusic");
     const response = document.getElementById("response");
+    const tapLayer = document.getElementById("tapLayer");
 
     let musicStarted = false;
 
-    // Start music on FIRST interaction anywhere
     function startMusic() {
       if (musicStarted) return;
       musicStarted = true;
@@ -217,19 +228,23 @@
           music.volume = vol;
         }
       }, 120);
+
+      tapLayer.remove();
     }
 
-    document.addEventListener("click", startMusic, { once: true });
-    document.addEventListener("touchstart", startMusic, { once: true });
+    tapLayer.addEventListener("click", startMusic, { once: true });
+    tapLayer.addEventListener("touchstart", startMusic, { once: true });
 
     function yes() {
       response.style.display = "block";
-      response.textContent = "That makes me really happy, Christine. Thank you for trusting me.";
+      response.textContent =
+        "That makes me really happy, Christine. Thank you for trusting me.";
     }
 
     function time() {
       response.style.display = "block";
-      response.textContent = "Take all the time you need, Christine. I respect you completely.";
+      response.textContent =
+        "Take all the time you need, Christine. I respect you completely.";
     }
   </script>
 
