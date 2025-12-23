@@ -11,12 +11,12 @@
   <style>
     :root {
       --bg1: #fff1f5;
-      --bg2: #fce7f3;
-      --card: rgba(255,255,255,0.9);
+      --bg2: #fde2e8;
+      --card: rgba(255,255,255,0.95);
       --text: #3f3d56;
       --muted: #6b7280;
       --accent: #ec4899;
-      --glow: rgba(236,72,153,0.5);
+      --shadow: rgba(236,72,153,0.25);
     }
 
     * { box-sizing: border-box; }
@@ -28,7 +28,6 @@
       background: radial-gradient(circle at top, var(--bg2), var(--bg1));
       color: var(--text);
       line-height: 1.9;
-      overflow-x: hidden;
     }
 
     section {
@@ -40,122 +39,80 @@
     }
 
     .container {
-      max-width: 780px;
+      max-width: 760px;
       width: 100%;
-      position: relative;
     }
 
     .card {
       background: var(--card);
-      backdrop-filter: blur(16px);
-      padding: 70px 58px;
-      border-radius: 36px;
-      box-shadow: 0 30px 70px rgba(236,72,153,0.25);
+      padding: 70px 56px;
+      border-radius: 34px;
+      box-shadow: 0 35px 80px var(--shadow);
       text-align: center;
-      position: relative;
-      z-index: 2;
     }
 
     @media (max-width: 640px) {
-      .card { padding: 46px 28px; }
+      .card { padding: 46px 26px; }
     }
 
     h1, h2 {
       font-family: 'Playfair Display', serif;
       font-weight: 600;
-      margin-bottom: 30px;
+      margin-bottom: 28px;
     }
 
-    h1 { font-size: clamp(2.5rem, 6vw, 3.6rem); }
-    h2 { font-size: clamp(2rem, 4.5vw, 2.6rem); }
+    h1 { font-size: clamp(2.6rem, 6vw, 3.6rem); }
+    h2 { font-size: clamp(2rem, 4.5vw, 2.5rem); }
 
     p {
       font-size: 1.05rem;
       color: var(--muted);
-      margin-bottom: 26px;
+      margin-bottom: 24px;
     }
 
     .primary { color: var(--text); }
 
-    /* Fade on scroll */
-    .fade {
-      opacity: 0;
-      transform: translateY(22px);
-      transition: 1.4s ease;
-    }
-    .fade.show {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* 🌸 Floating hearts */
-    .heart {
-      position: fixed;
-      bottom: -20px;
-      font-size: 1.4rem;
-      opacity: 0.15;
-      animation: floatUp 12s linear infinite;
-      pointer-events: none;
-    }
-
-    @keyframes floatUp {
-      from { transform: translateY(0) translateX(0); }
-      to { transform: translateY(-120vh) translateX(30px); }
-    }
-
-    /* 💗 Interactive "I like you" */
-    .focus {
-      font-size: 1.7rem;
-      color: var(--text);
-      margin-top: 42px;
+    .btn {
+      padding: 15px 38px;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, #f472b6, #ec4899);
+      color: white;
+      font-size: 1rem;
       cursor: pointer;
-      display: inline-block;
-      position: relative;
-      animation: heartbeat 2.8s ease-in-out infinite;
-      transition: all 0.4s ease;
+      box-shadow: 0 14px 30px rgba(236,72,153,0.45);
+      transition: all 0.3s ease;
     }
 
-    @keyframes heartbeat {
-      0%,100% { transform: scale(1); }
-      50% { transform: scale(1.05); }
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(236,72,153,0.55);
     }
 
-    .focus:hover {
+    .choice-btns {
+      display: flex;
+      gap: 18px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 32px;
+    }
+
+    .btn.secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid rgba(236,72,153,0.4);
+      box-shadow: none;
+    }
+
+    .btn.secondary:hover {
+      background: rgba(236,72,153,0.08);
+    }
+
+    .response {
+      margin-top: 32px;
+      font-size: 1.1rem;
       color: var(--accent);
-      text-shadow: 0 0 22px var(--glow);
-    }
-
-    .focus.revealed {
-      font-size: 2rem;
-      color: var(--accent);
-      animation: none;
-      text-shadow: 0 0 26px var(--glow);
-    }
-
-    .focus::after {
-      content: "";
-      position: absolute;
-      left: 50%;
-      bottom: -10px;
-      width: 0;
-      height: 3px;
-      background: linear-gradient(90deg,#f472b6,#ec4899);
-      transform: translateX(-50%);
-      border-radius: 99px;
-      transition: width 0.6s ease;
-    }
-
-    .focus.revealed::after {
-      width: 100%;
-    }
-
-    .extra {
-      opacity: 0;
-      max-height: 0;
-      overflow: hidden;
-      transition: all 0.8s ease;
-      font-size: 1.05rem;
-      color: var(--muted);
+      display: none;
     }
 
     footer {
@@ -174,23 +131,19 @@
     <source src="iwannabeyours1.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- 🌸 Floating hearts -->
-  <div class="heart" style="left:10%">♡</div>
-  <div class="heart" style="left:40%; animation-delay:3s">♡</div>
-  <div class="heart" style="left:70%; animation-delay:6s">♡</div>
-
   <!-- SECTION 1 -->
   <section>
-    <div class="container fade">
+    <div class="container">
       <div class="card">
         <h1>Hey…</h1>
         <p class="primary">
-          I wanted this to feel soft.  
-          Like something meant only for you.
+          I wanted to say this to you
+          from long time
         </p>
         <p>
-          So I made this little space  
-          where honesty could breathe.
+          Not to rush you.  
+          Not to pressure you.  
+          Just to be real.
         </p>
       </div>
     </div>
@@ -198,82 +151,69 @@
 
   <!-- SECTION 2 -->
   <section>
-    <div class="container fade">
+    <div class="container">
       <div class="card">
-        <h2>How it started</h2>
+        <h2>How it feels</h2>
         <p>
-          We were just talking.  
-          No plans. No expectations.
+          Somewhere between conversations,  
+          laughter, and silence…
         </p>
         <p>
-          And slowly, you became  
-          someone I cared about deeply.
+          You became someone I genuinely care about.
+           Someone who i don't wanna loose. 
         </p>
       </div>
     </div>
   </section>
 
-  <!-- SECTION 3 (FOCUS) -->
+  <!-- SECTION 3 -->
   <section>
-    <div class="container fade">
+    <div class="container">
       <div class="card">
-        <h2>This is me being honest</h2>
+        <h2>This is the truth</h2>
 
-        <p id="likeText" class="focus" onclick="reveal()">
+        <p class="primary" style="font-size:1.4rem;">
           I like you.
         </p>
 
-        <p id="extra1" class="extra">
-          I like the way you talk.  
-          I like how safe everything feels with you.
+        <p>
+          Not impulsively.  
+          Not casually.  
+          I like you for who you are.
         </p>
 
-        <p id="extra2" class="extra">
-          This isn’t rushed.  
-          It’s just real.
-        </p>
+        <div class="choice-btns">
+          <button class="btn" onclick="yes()">I feel the same</button>
+          <button class="btn secondary" onclick="time()">I need some time</button>
+        </div>
+
+        <div id="response" class="response"></div>
       </div>
     </div>
   </section>
 
   <footer>
-    Made with care, not pressure.
+    Whatever you feel is okay.
   </footer>
 
   <script>
-    // Fade on scroll
-    const items = document.querySelectorAll('.fade');
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('show');
-      });
-    }, { threshold: 0.25 });
-    items.forEach(i => observer.observe(i));
-
-    // Music + reveal
-    let opened = false;
     const music = document.getElementById("bgMusic");
+    const response = document.getElementById("response");
+    let played = false;
 
-    function reveal() {
-      if (opened) return;
-      opened = true;
+    function yes() {
+      if (!played) {
+        music.volume = 0.4;
+        music.play();
+        played = true;
+      }
+      response.style.display = "block";
+      response.textContent = "That makes me really happy. Thank you for trusting me.";
+    }
 
-      music.volume = 0.35;
-      music.play();
-
-      const main = document.getElementById("likeText");
-      main.classList.add("revealed");
-
-      const e1 = document.getElementById("extra1");
-      const e2 = document.getElementById("extra2");
-
-      e1.style.opacity = "1";
-      e1.style.maxHeight = "200px";
-
-      setTimeout(() => {
-        e2.style.opacity = "1";
-        e2.style.maxHeight = "200px";
-      }, 700);
+    function time() {
+      response.style.display = "block";
+      response.textContent = "Take all the time you need. I respect you completely.";
     }
   </script>
 
