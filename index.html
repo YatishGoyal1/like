@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>For You</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <title>For Christine</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <!-- Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
 
   <style>
     :root {
@@ -16,11 +16,10 @@
       --text: #3f3d56;
       --muted: #6b7280;
       --accent: #ec4899;
-      --shadow: rgba(236,72,153,0.25);
+      --shadow: rgba(236,72,153,0.3);
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
@@ -57,7 +56,6 @@
 
     h1, h2 {
       font-family: 'Playfair Display', serif;
-      font-weight: 600;
       margin-bottom: 28px;
     }
 
@@ -72,6 +70,13 @@
 
     .primary { color: var(--text); }
 
+    .name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
     .btn {
       padding: 15px 38px;
       border-radius: 999px;
@@ -82,19 +87,20 @@
       cursor: pointer;
       box-shadow: 0 14px 30px rgba(236,72,153,0.45);
       transition: all 0.3s ease;
+      margin-top: 10px;
     }
 
     .btn:hover {
       transform: translateY(-2px);
-      box-shadow: 0 20px 40px rgba(236,72,153,0.55);
+      box-shadow: 0 20px 40px rgba(236,72,153,0.6);
     }
 
-    .choice-btns {
+    .choices {
       display: flex;
       gap: 18px;
       justify-content: center;
       flex-wrap: wrap;
-      margin-top: 32px;
+      margin-top: 30px;
     }
 
     .btn.secondary {
@@ -109,7 +115,7 @@
     }
 
     .response {
-      margin-top: 32px;
+      margin-top: 30px;
       font-size: 1.1rem;
       color: var(--accent);
       display: none;
@@ -126,7 +132,7 @@
 </head>
 <body>
 
-  <!-- 🎵 Background Music -->
+  <!-- 🎵 BACKGROUND MUSIC -->
   <audio id="bgMusic" loop>
     <source src="iwannabeyours1.mp3" type="audio/mpeg">
   </audio>
@@ -135,16 +141,20 @@
   <section>
     <div class="container">
       <div class="card">
+        <div class="name">Christine</div>
         <h1>Hey…</h1>
         <p class="primary">
-          I wanted to say this to you
-          from long time
+          I made this because I wanted to say something
+          in a calm and honest way.
         </p>
         <p>
-          Not to rush you.  
-          Not to pressure you.  
-          Just to be real.
+          No pressure.  
+          Just how I truly feel.
         </p>
+
+        <button class="btn" id="musicBtn" onclick="toggleMusic()">
+          ▶ Play music
+        </button>
       </div>
     </div>
   </section>
@@ -155,12 +165,11 @@
       <div class="card">
         <h2>How it feels</h2>
         <p>
-          Somewhere between conversations,  
-          laughter, and silence…
+          Somewhere between conversations,
+          laughter, and time…
         </p>
         <p>
           You became someone I genuinely care about.
-           Someone who i don't wanna loose. 
         </p>
       </div>
     </div>
@@ -173,16 +182,16 @@
         <h2>This is the truth</h2>
 
         <p class="primary" style="font-size:1.4rem;">
-          I like you.
+          Christine, I like you.
         </p>
 
         <p>
-          Not impulsively.  
+          Not suddenly.  
           Not casually.  
           I like you for who you are.
         </p>
 
-        <div class="choice-btns">
+        <div class="choices">
           <button class="btn" onclick="yes()">I feel the same</button>
           <button class="btn secondary" onclick="time()">I need some time</button>
         </div>
@@ -198,22 +207,31 @@
 
   <script>
     const music = document.getElementById("bgMusic");
+    const musicBtn = document.getElementById("musicBtn");
     const response = document.getElementById("response");
-    let played = false;
+    let isPlaying = false;
 
-    function yes() {
-      if (!played) {
+    function toggleMusic() {
+      if (!isPlaying) {
         music.volume = 0.4;
         music.play();
-        played = true;
+        musicBtn.textContent = "⏸ Pause music";
+        isPlaying = true;
+      } else {
+        music.pause();
+        musicBtn.textContent = "▶ Play music";
+        isPlaying = false;
       }
+    }
+
+    function yes() {
       response.style.display = "block";
-      response.textContent = "That makes me really happy. Thank you for trusting me.";
+      response.textContent = "That makes me really happy, Christine. Thank you for trusting me.";
     }
 
     function time() {
       response.style.display = "block";
-      response.textContent = "Take all the time you need. I respect you completely.";
+      response.textContent = "Take all the time you need, Christine. I respect you completely.";
     }
   </script>
 
